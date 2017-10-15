@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">-->
+
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Your app title -->
+    <title>My App</title>
+
+    <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
+        http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
+     -->
+
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
+
+    <link rel="stylesheet" href="css/styles.css">
+	
+	<style>
+		.circle{
+			border-radius: 25%;
+		}
+		.center{
+			text-align:center;
+		}
+		button.button-center{
+		  margin:auto !important;
+		}
+		#imgready{
+			border:1px solid #777;
+			width:100%;
+		}
+		#imgready2{
+			border:1px solid #777;
+			width:100%;
+		}
+		.page-content{
+			background-color:#00bcd4;
+		}
+		.navbar{
+			background-color:#006774;
+			color:white;
+		}
+		
+	
+	</style>
+	
+</head>
+
+<body>
+    <!-- Status bar overlay for full screen mode (PhoneGap) -->
+    <div class="statusbar-overlay"></div>
+
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block" id="leftcontent" style="display:none">
+			<div class="row" style="margin:20px 0"><div class="col-100 center">Logged in as <b><i><div id="_username"></div></i></b></div></div>
+			
+			<div class="row">
+				<div class="col-100 center">
+					<i class="fa fa-user-circle fa-6" aria-hidden="true" style="font-size:50vw"></i>
+				</div>
+			</div>
+			
+			<div class="row" style="margin:20px 0">
+				<div class="col-100 center">
+					<a href="#" onclick="logout()" id="_logout" class="button button-big button-fill color-red button-center">Logout</a>
+				</div>
+			</div>
+		</div>
+    </div>
+
+    <!-- Views -->
+    <div class="views">
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Top Navbar-->
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                    <div class="center sliding">LOGIN</div>
+                    <!--<div class="right">
+                        <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+                    </div>-->
+                </div>
+            </div>
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages navbar-through toolbar-through">
+                <!-- Page, "data-page" contains page name -->
+                <div data-page="login" class="page">
+                    <!-- Scrollable page content -->
+                    <div class="page-content">
+						<div class="content-block">
+							<div class="center"><img src="./img/logo_login.png" style="width:100%"></div>
+							<div class="list-block">
+							  <ul>
+								<li>
+								  <div class="item-content">
+									
+									<div class="item-inner">
+									  <div class="item-title label">Username</div>
+									  <div class="item-input">
+										  <input type="text" id="username" name="username" placeholder="username">
+									  </div>
+									</div>
+								  </div>
+								</li>
+								
+								<li>
+								  <div class="item-content">
+									
+									<div class="item-inner">
+									  <div class="item-title label">Password</div>
+									  <div class="item-input">
+										  <input type="password" id="password" name="password"  placeholder="password">
+									  </div>
+									</div>
+								  </div>
+								</li>
+							  </ul>
+							</div> 
+							
+							<div class="z">
+								<div class="row spaceafter">
+									<div class="col-100 center">
+										<a href="#" onclick="doLogin()" id="login" class="button button-big button-fill color-blue button-center">LOGIN</a>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-100 center">
+										<a href="tanyabpjs.html" id="reg" class="button button-big button-fill color-red button-center">PASIEN BARU</a>
+									</div>
+								</div>
+								
+							</div>	
+						</div>
+					</div>
+                </div>
+            </div>
+			
+			<div class="popup popup-loading">
+				<span style="width:42px; height:42px" class="preloader"></span>
+			</div>
+			
+            
+        </div>
+    </div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/barcode.js"></script>
+    <script type="text/javascript" src="js/my-app.js"></script>
+</body>
+
+</html>

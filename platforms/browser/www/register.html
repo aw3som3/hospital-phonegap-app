@@ -1,0 +1,91 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax. -->
+
+<!-- Top Navbar-->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="back link">
+                <i class="icon icon-back"></i>
+                <span>Back</span>
+            </a>
+        </div>
+        <div class="center sliding">Pilih Poli</div>
+        <div class="right">
+            <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+        </div>
+    </div>
+</div>
+<div class="pages">
+    <div data-page="polilist" class="page">
+        <div class="page-content">
+            <div class="content-block">
+				<div class="list-block">
+					<ul id="listregister">
+						<li>
+							<div class="item-content">
+								<div class="item-inner">
+								  <div class="item-title label">Nama</div>
+								  <div class="item-input">
+									  <input type="text" id="r_nama" name="nama"  placeholder="nama anda">
+								  </div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content">
+								<div class="item-inner">
+								  <div class="item-title label">Jenis Kelamin</div>
+								  <div class="item-input">
+									  <select id="r_jeniskelamin">
+											<option value="L">laki-laki</option>
+											<option value="P">perempuan</option>
+									  </select>
+								  </div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="item-content">
+								<div class="item-inner">
+								  <div class="item-title label">Tempat lahir</div>
+								  <div class="item-input">
+									  <input type="text" id="r_tempatlahir" name="tempatlahir"  placeholder="tempat lahir">
+								  </div>
+								</div>
+							</div>
+						</li>
+						
+						<li>
+							<div class="item-content">
+								<div class="item-inner">
+								  <div class="item-title label">Tanggal Lahir</div>
+								  <div class="item-input">
+									  <input type="date" id="r_tanggallahir" name="tgllahir"  placeholder="tanggal lahir">
+								  </div>
+								</div>
+							</div>
+						</li>
+						
+						<li>
+							<div class="item-content">
+								<div class="item-inner">
+								  <div class="item-title label">Alamat</div>
+								  <div class="item-input">
+									  <input type="text" id="r_alamat" name="alamat"  placeholder="alamat">
+								  </div>
+								</div>
+							</div>
+						</li>
+						
+					</ul>
+					
+				</div>
+				<div class="row">
+					<div class="col-100 center">
+						<a href="#" onclick="daftar()"  class="button button-big button-fill color-green button-center">DAFTAR</a>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
