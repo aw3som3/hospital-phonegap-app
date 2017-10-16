@@ -191,7 +191,7 @@ $$(document).on('pageInit', '.page[data-page="jadwallist"]', function (e) {
 $$(document).on('pageInit', '.page[data-page="confirm"]', function (e) {
 	var hari = ["SENIN","SELASA","RABU","KAMIS","JUMAT","SABTU","MINGGU"];
 	var haritxt = hari[parseInt(kodeharichoosen)-2];
-	$("#nama").html("Hari : "+datapasien.nama);
+	$("#nama").html("Nama Pasien: "+datapasien.namapasien);
 	$("#hari").html("Hari : "+haritxt);
 	$("#poli").html("Poli : "+namapolichoosen);
 	$("#dokter").html("Dokter : "+namadokterchoosen);

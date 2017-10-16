@@ -191,7 +191,7 @@ $$(document).on('pageInit', '.page[data-page="jadwallist"]', function (e) {
 $$(document).on('pageInit', '.page[data-page="confirm"]', function (e) {
 	var hari = ["SENIN","SELASA","RABU","KAMIS","JUMAT","SABTU","MINGGU"];
 	var haritxt = hari[parseInt(kodeharichoosen)-2];
-	$("#nama").html("Hari : "+datapasien.nama);
+	$("#nama").html("Nama Pasien: "+datapasien.namapasien);
 	$("#hari").html("Hari : "+haritxt);
 	$("#poli").html("Poli : "+namapolichoosen);
 	$("#dokter").html("Dokter : "+namadokterchoosen);
@@ -215,7 +215,7 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
 	if(dataBpjs!=null){
 		if(dataBpjs.response!=undefined || dataBpjs.response!=null){
 			if(dataBpjs.response.peserta!=undefined || dataBpjs.response.peserta!=null){
-				var dat = dataBpjs.response.peserta.tglLahir.split("-");
+				
 				$("#r_nama").val(dataBpjs.response.peserta.nama);
 				$("#r_tanggallahir").val(dataBpjs.response.peserta.tglLahir);
 				$("#r_jeniskelamin").val(dataBpjs.response.peserta.sex);
