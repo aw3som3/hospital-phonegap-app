@@ -7,8 +7,8 @@ var myApp = new Framework7({
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
-var base_url = "http://192.168.1.10:8080"
-var base_url_bpjs = "http://192.168.1.10:8081"
+//var localStorage.base_url = "http://192.168.1.10:8080"
+//var localStorage.base_url_bpjs = "http://192.168.1.10:8081"
 
 
 var polichoosen = "";
@@ -22,6 +22,8 @@ var kodewaktuchoosen = "";
 var jamMulaiChoosen = "";
 var jamSelesaiChoosen  = "";
 var tanggalChoosen = "";
+
+var dataBpjs = null;
 
 var bookingobject = {
 	"nobooking" : null,
@@ -61,6 +63,10 @@ var mainView = myApp.addView('.view-main', {
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
+	if(localStorage.base_url==undefined){
+		localStorage.base_url = "http://192.168.1.10:8080";
+		localStorage.base_url_bpjs = "http://192.168.1.10:8081";
+	}
     console.log("Device is ready!");
 });
 
@@ -93,7 +99,7 @@ $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
 $$(document).on('pageInit', '.page[data-page="polilist"]', function (e) {
 	$("#leftcontent").show();
 	
-    var jqxhr = $.get( base_url+"/bagian/getall/", function() {
+    var jqxhr = $.get( localStorage.base_url+"/bagian/getall/", function() {
 		
 	})
 	.done(function(data) {
@@ -118,7 +124,7 @@ $$(document).on('pageInit', '.page[data-page="polilist"]', function (e) {
 });
 $$(document).on('pageInit', '.page[data-page="dokterlist"]', function (e) {
 	console.log("test");
-    var jqxhr = $.get( base_url+"/dokter/getbykodebagian/"+polichoosen, function() {
+    var jqxhr = $.get( localStorage.base_url+"/dokter/getbykodebagian/"+polichoosen, function() {
 		
 	})
 	.done(function(data) {
@@ -144,7 +150,7 @@ $$(document).on('pageInit', '.page[data-page="dokterlist"]', function (e) {
 
 $$(document).on('pageInit', '.page[data-page="jadwallist"]', function (e) {
 	console.log("test");
-    var jqxhr = $.get( base_url+"/jadwal/getbydokterandbagian/"+dokterchoosen+"/"+polichoosen, function() {
+    var jqxhr = $.get( localStorage.base_url+"/jadwal/getbydokterandbagian/"+dokterchoosen+"/"+polichoosen, function() {
 		
 	})
 	.done(function(data) {
@@ -205,13 +211,26 @@ $$(document).on('pageInit', '.page[data-page="login"]', function (e) {
 	}
 	
 });
+$$(document).on('pageInit', '.page[data-page="register"]', function (e) {
+	if(dataBpjs!=null){
+		if(dataBpjs.response!=undefined || dataBpjs.response!=null){
+			if(dataBpjs.response.peserta!=undefined || dataBpjs.response.peserta!=null){
+				var dat = dataBpjs.response.peserta.tglLahir.split("-");
+				$("#r_nama").val(dataBpjs.response.peserta.nama);
+				$("#r_tanggallahir").val(dataBpjs.response.peserta.tglLahir);
+				$("#r_jeniskelamin").val(dataBpjs.response.peserta.sex);
+			}
+		}
+	}
+	
+});
 
 
 function doLogin(){
 	var nopasien  = $("#username").val();
 	var pin  = $("#password").val();
 	
-	var jqxhr = $.get( base_url+"/pasien/login/"+nopasien+"/"+pin, function() {
+	var jqxhr = $.get( localStorage.base_url+"/pasien/login/"+nopasien+"/"+pin, function() {
 	
 	})
 	.done(function(data) {
@@ -284,7 +303,7 @@ function formatDate(d){
 	return date+" "+month+" "+year;
 }
 function confirmBooking(){
-	var url = base_url+'/regbooking/save';
+	var url = localStorage.base_url+'/regbooking/save';
 	var data = JSON.stringify(bookingobject);
 		
 	$.ajax({
@@ -375,7 +394,7 @@ function daftar(){
 		"icdkunja" : ""
 	}
 	
-	var url = base_url+'/pasien/save';
+	var url = localStorage.base_url+'/pasien/save';
 	
 	$.ajax({
 	  url:url,
@@ -398,16 +417,25 @@ function daftar(){
 
 }
 function getbpjs(){
-	var url = base_url_bpjs+'/bpjs/get';
+	var url = localStorage.base_url_bpjs+'/bpjs/get/'+$("#nomor_bpjs").val();
 	var jqxhr = $.get( url, function() {
 		
 	})
 	.done(function(data) {
 		console.log(data);
+		dataBpjs = JSON.parse(data);
 		mainView.router.load({url:"register.html"});
 	})
 	.fail(function(data) {
 		mainView.router.load({url:"register.html"});
 	})
 }
+
+function changesetting(){
+	localStorage.base_url = $("#r_url").val();
+	localStorage.base_url_bpjs = $("#r_urlbpjs").val();
+	alert("sukses tersimpan");
+	window.location.reload();
+}
+
 myApp.init();
